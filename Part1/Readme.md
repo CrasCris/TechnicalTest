@@ -1,4 +1,4 @@
-# technical_test_DS_GenAI
+# technical_test_DS_GenAI - Part1
 
 This repository have the code for the firts part of the technical test.
 

@@ -54,6 +54,10 @@ class request(BaseModel):
     }
 
 class Customer:
+    '''
+        All the information of a customer and the data transform to use the model we have trained
+    '''
+
     def __init__(self, CreditScore, Geography, Gender, Age, Tenure, Balance, 
                  NumOfProducts, HasCrCard, IsActiveMember, EstimatedSalary):
         self.CreditScore = CreditScore
@@ -115,6 +119,10 @@ async def read_root():
 
 @app.post('/predict_Churn')
 async def predict(request:request):
+    '''
+        Prediction of a possible Churn customer
+    '''
+
     cliente = Customer(request.CreditScore,request.Geography,request.Gender,
                        request.Age,request.Tenure,request.Balance,
                        request.NumOfProducts,request.HasCrCard,

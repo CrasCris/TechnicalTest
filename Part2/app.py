@@ -25,7 +25,10 @@ hub_llm = HuggingFaceEndpoint(
 )
 
 @st.cache_resource
-def load_pdf():
+def load_bruno_pdf():
+    '''
+        This function load in server memory the information of the bruno PDF, and transform to use in our LLM model
+    '''
     pdf_name = 'Bruno_child_offers.pdf'
     loaders = [PyPDFLoader(pdf_name)]
     index = VectorstoreIndexCreator(
@@ -34,8 +37,9 @@ def load_pdf():
     ).from_loaders(loaders)
     return index
 
-index = load_pdf()
+index = load_bruno_pdf()
 
+# Prepare the chain for our chat
 chain = RetrievalQA.from_chain_type(
     llm=hub_llm,
     chain_type='stuff',
@@ -43,6 +47,7 @@ chain = RetrievalQA.from_chain_type(
     input_key='question'
 )
 
+# Simple Streamlit App 
 st.title("Ask about Bruno child offers")
 
 if 'messages' not in st.session_state:
@@ -61,12 +66,9 @@ if prompt:
         input_variables=["system_message", "question"],
         template="{system_message}\nQuestion: {question}\nAnswer:"
     )
-    
     hub_chain = RunnableSequence(prompt_template | hub_llm)
     try:
-        # Invoke the chain to get the result
         result = chain.invoke({'question': prompt})
-        # Extract and clean the result
         cleaned_result = result['result'].strip().replace('Helpful Answer:', '').replace('�', '').replace('helpful answer:', '')
         st.chat_message('assistant').markdown(cleaned_result)
         st.session_state.messages.append({'role': 'assistant', 'content': cleaned_result})

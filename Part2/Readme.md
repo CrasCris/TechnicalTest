@@ -1,4 +1,4 @@
-# technical_test_DS_GenAI - Part2
+# technical_test - Part2
 
 This section has Generative AI skills technical test , the can load the Bruno_child_offers.pdf , to ask questions. 
 

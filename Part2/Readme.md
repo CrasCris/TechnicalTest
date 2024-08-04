@@ -1,4 +1,4 @@
-# technical_test_DS_GenAI - Part2
+# technical_test - Part2
 
 This section has Generative AI skills technical test , the can load the Bruno_child_offers.pdf , to ask questions. 
 
@@ -12,6 +12,7 @@ Using models like openai or anthropic will be much more efficient than using ope
 * Add in each response and answers the number of tokens 
 * Create some styles for frontend Streamlit app
 * Use OpenLLM for using a bigger LLM model and using the information in dedicate vector database
+* How to perform the splitting text , adding special characters to help the embedding model
 
 ## How to running in production with Docker
 You have to generate your HuggingFace token and pass as parameter, the port is the default for streamlit.

@@ -1,4 +1,4 @@
-# technical_test_DS_GenAI - Part1
+# technical_test - Part1
 
 This section has the code for the firts part of the technical test.
 

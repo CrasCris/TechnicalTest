@@ -4,7 +4,7 @@ from langchain.chains import RetrievalQA
 from langchain_huggingface import HuggingFaceEndpoint
 from langchain_core.runnables import RunnableSequence
 from langchain_community.embeddings import HuggingFaceBgeEmbeddings
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.text_splitter import RecursiveCharacterTextSplitter,CharacterTextSplitter
 from langchain.prompts import PromptTemplate
 
 import streamlit as st
@@ -17,7 +17,7 @@ import streamlit as st
 hub_llm = HuggingFaceEndpoint(
     repo_id="meta-llama/Meta-Llama-3-8B-Instruct",
     task="question-answering",
-    max_new_tokens=100,
+    max_new_tokens=512,
     top_p=0.6,
     do_sample=False,
     verbose=False,
@@ -32,8 +32,8 @@ def load_bruno_pdf():
     pdf_name = 'Bruno_child_offers.pdf'
     loaders = [PyPDFLoader(pdf_name)]
     index = VectorstoreIndexCreator(
-        embedding=HuggingFaceBgeEmbeddings(model_name='all-MPNet-base-v2'),
-        text_splitter=RecursiveCharacterTextSplitter(chunk_size=100, chunk_overlap=20,length_function=len)
+        embedding=HuggingFaceBgeEmbeddings(model_name='hkunlp/instructor-xl'),
+        text_splitter=RecursiveCharacterTextSplitter(chunk_size=150, chunk_overlap=20,length_function=len,separators=['*Dermatológicamente probado. Basado en estudios técnicos realizados.','\n'],keep_separator=False)
     ).from_loaders(loaders)
     return index
 
